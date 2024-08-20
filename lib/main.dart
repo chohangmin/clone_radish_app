@@ -1,12 +1,22 @@
 import 'package:beamer/beamer.dart';
 import 'package:clone_radish_app/router/locations.dart';
+import 'package:clone_radish_app/screens/auth_screen.dart';
 import 'package:clone_radish_app/screens/home_screen.dart';
 import 'package:clone_radish_app/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 final _routerDelegate = BeamerDelegate(
-    locationBuilder:
-        BeamerLocationBuilder(beamLocations: [HomeLocation()]).call);
+  locationBuilder: BeamerLocationBuilder(beamLocations: [HomeLocation()]).call,
+  guards: [
+    BeamGuard(
+      pathPatterns: ['/'],
+      check: (context, loaction) {
+        return false;
+      },
+      showPage: const BeamPage(child: AuthScreen()),
+    )
+  ],
+);
 
 void main() {
   runApp(const MyApp());

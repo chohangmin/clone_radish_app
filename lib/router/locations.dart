@@ -11,4 +11,7 @@ class HomeLocation extends BeamLocation {
 
   @override
   List<Pattern> get pathPatterns => ['/'];
+
+
+
 }
