@@ -1,19 +1,19 @@
 import 'package:beamer/beamer.dart';
 import 'package:clone_radish_app/router/locations.dart';
-import 'package:clone_radish_app/screens/auth_screen.dart';
-import 'package:clone_radish_app/screens/home_screen.dart';
 import 'package:clone_radish_app/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 final _routerDelegate = BeamerDelegate(
-  locationBuilder: BeamerLocationBuilder(beamLocations: [HomeLocation()]).call,
+  locationBuilder:
+      BeamerLocationBuilder(beamLocations: [HomeLocation(), AuthLocation()])
+          .call,
   guards: [
     BeamGuard(
       pathPatterns: ['/'],
       check: (context, loaction) {
         return false;
       },
-      showPage: const BeamPage(child: AuthScreen()),
+      beamToNamed: (orign, target) => '/auth',
     )
   ],
 );
@@ -44,6 +44,12 @@ class RadishApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
+      theme: ThemeData(
+          fontFamily: 'Hanbit',
+          primarySwatch: Colors.green,
+          textTheme: const TextTheme(
+            labelLarge: TextStyle(color: Colors.white),
+          )),
       debugShowCheckedModeBanner: false,
       routeInformationParser: BeamerParser(),
       routerDelegate: _routerDelegate,

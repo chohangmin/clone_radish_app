@@ -1,3 +1,4 @@
+import 'package:clone_radish_app/screens/start/intro_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -7,9 +8,9 @@ class AuthScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.green,
+      backgroundColor: Colors.white,
       body: PageView(children: [
-        const Center(child: Text('로그인을 하시오')),
+        const IntroPage(),
         Container(
           color: Colors.accents[2],
         ),
