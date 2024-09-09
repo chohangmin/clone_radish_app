@@ -17,7 +17,7 @@ class IntroPage extends StatelessWidget {
               style: TextStyle(
                 fontSize: 30,
                 fontWeight: FontWeight.bold,
-                color: Theme.of(context).colorScheme.primary,
+                color: Theme.of(context).primaryColor,
               ),
             ),
             ExtendedImage.asset('assets/images/intro_one.png'),
@@ -41,7 +41,7 @@ class IntroPage extends StatelessWidget {
                 TextButton(
                   onPressed: () {},
                   style: TextButton.styleFrom(
-                    backgroundColor: Theme.of(context).colorScheme.primary,
+                    backgroundColor: Theme.of(context).primaryColor,
                   ),
                   child: Text(
                     '내 동네 설정하고 시작하기',
