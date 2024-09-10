@@ -8,8 +8,9 @@ class AddressPage extends StatelessWidget {
     final primaryColor = Theme.of(context).primaryColor;
     final buttonColor = Theme.of(context).textTheme.labelLarge?.color;
     return SafeArea(
-      minimum: const EdgeInsets.all(16),
+      minimum: const EdgeInsets.fromLTRB(16, 16, 16, 0),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           TextFormField(
             decoration: InputDecoration(
@@ -38,24 +39,37 @@ class AddressPage extends StatelessWidget {
             ),
             cursorColor: primaryColor,
           ),
-          Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-            TextButton.icon(
-              onPressed: () {},
-              icon: Icon(
-                Icons.location_pin,
+          const SizedBox(
+            height: 8,
+          ),
+          TextButton.icon(
+            onPressed: () {},
+            icon: Icon(
+              Icons.location_pin,
+              color: buttonColor,
+            ),
+            label: Text(
+              '현재 위치로 찾기',
+              style: TextStyle(
                 color: buttonColor,
               ),
-              label: Text(
-                '현재 위치로 찾기',
-                style: TextStyle(
-                  color: buttonColor,
-                ),
-              ),
-              style: TextButton.styleFrom(
-                backgroundColor: primaryColor,
-              ),
             ),
-          ]),
+            style: TextButton.styleFrom(
+              minimumSize: const Size(10, 48),
+              backgroundColor: primaryColor,
+            ),
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: 30,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text('address $index'),
+                  subtitle: Text('detail $index'),
+                );
+              },
+            ),
+          ),
         ],
       ),
     );
