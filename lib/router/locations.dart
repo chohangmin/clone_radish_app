@@ -18,7 +18,7 @@ class AuthLocation extends BeamLocation {
   @override
   List<BeamPage> buildPages(
       BuildContext context, RouteInformationSerializable state) {
-    return [const BeamPage(child: AuthScreen(), key: ValueKey('auth'))];
+    return [ BeamPage(child: AuthScreen(), key: ValueKey('auth'))];
   }
 
   @override

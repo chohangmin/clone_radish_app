@@ -46,7 +46,8 @@ class RadishApp extends StatelessWidget {
     return MaterialApp.router(
       theme: ThemeData(
           fontFamily: 'Hanbit',
-          primaryColor: Colors.green,
+          hintColor: Colors.grey[350],
+          primaryColor: Colors.pink[300],
           textTheme: const TextTheme(
             labelLarge: TextStyle(color: Colors.white),
           )),
