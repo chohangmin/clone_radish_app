@@ -45,12 +45,25 @@ class RadishApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       theme: ThemeData(
-          fontFamily: 'Hanbit',
-          hintColor: Colors.grey[350],
-          primaryColor: Colors.pink[300],
-          textTheme: const TextTheme(
-            labelLarge: TextStyle(color: Colors.white),
-          )),
+        fontFamily: 'Hanbit',
+        hintColor: Colors.grey[350],
+        primaryColor: Colors.pink[300],
+        textTheme: const TextTheme(
+          labelLarge: TextStyle(color: Colors.white),
+        ),
+        textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(
+            backgroundColor: Colors.pink[300],
+            foregroundColor: Colors.white,
+            minimumSize: const Size(48, 48),
+          ),
+        ),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.white,
+          titleTextStyle: TextStyle(color: Colors.black87),
+          elevation: 2,
+        ),
+      ),
       debugShowCheckedModeBanner: false,
       routeInformationParser: BeamerParser(),
       routerDelegate: _routerDelegate,

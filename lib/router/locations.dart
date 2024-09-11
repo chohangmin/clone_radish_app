@@ -1,5 +1,5 @@
 import 'package:beamer/beamer.dart';
-import 'package:clone_radish_app/screens/auth_screen.dart';
+import 'package:clone_radish_app/screens/start_screen.dart';
 import 'package:clone_radish_app/screens/home_screen.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
@@ -18,7 +18,7 @@ class AuthLocation extends BeamLocation {
   @override
   List<BeamPage> buildPages(
       BuildContext context, RouteInformationSerializable state) {
-    return [ BeamPage(child: AuthScreen(), key: ValueKey('auth'))];
+    return [BeamPage(child: StartScreen(), key: const ValueKey('start'))];
   }
 
   @override

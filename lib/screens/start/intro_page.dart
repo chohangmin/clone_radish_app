@@ -69,11 +69,8 @@ class IntroPage extends StatelessWidget {
                     style: TextButton.styleFrom(
                       backgroundColor: Theme.of(context).primaryColor,
                     ),
-                    child: Text(
+                    child: const Text(
                       '내 동네 설정하고 시작하기',
-                      style: TextStyle(
-                        color: Theme.of(context).textTheme.labelLarge?.color,
-                      ),
                     ),
                   ),
                 ],

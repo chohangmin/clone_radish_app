@@ -54,10 +54,6 @@ class AddressPage extends StatelessWidget {
                 color: buttonColor,
               ),
             ),
-            style: TextButton.styleFrom(
-              minimumSize: const Size(10, 48),
-              backgroundColor: primaryColor,
-            ),
           ),
           Expanded(
             child: ListView.builder(
