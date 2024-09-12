@@ -1,7 +1,10 @@
 import 'package:clone_radish_app/constants/common_size.dart';
+import 'package:clone_radish_app/states/user_provider.dart';
+import 'package:clone_radish_app/utils/logger.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
+import 'package:provider/provider.dart';
 
 class AuthPage extends StatefulWidget {
   const AuthPage({super.key});
@@ -164,6 +167,8 @@ class _AuthPageState extends State<AuthPage> {
     setState(() {
       _verificationStatus = VerificationStatus.verificationDone;
     });
+    context.read<UserProvider>().setUserAuth(true);
+    logger.d('current user state ${context.read<UserProvider>().userState}');
   }
 }
 

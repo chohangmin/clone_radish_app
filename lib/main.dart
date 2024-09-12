@@ -1,7 +1,9 @@
 import 'package:beamer/beamer.dart';
 import 'package:clone_radish_app/router/locations.dart';
 import 'package:clone_radish_app/screens/splash_screen.dart';
+import 'package:clone_radish_app/states/user_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 final _routerDelegate = BeamerDelegate(
   locationBuilder:
@@ -10,11 +12,18 @@ final _routerDelegate = BeamerDelegate(
   guards: [
     BeamGuard(
       pathPatterns: ['/'],
-      check: (context, loaction) {
-        return false;
+      check: (context, location) {
+        return context.watch<UserProvider>().userState;
       },
       beamToNamed: (orign, target) => '/auth',
-    )
+    ),
+    // BeamGuard(
+    //   pathPatterns: ['/auth'],
+    //   check: (context, location) {
+    //     return context.watch<UserProvider>().userState;
+    //   },
+    //   beamToNamed: (orign, target) => '/',
+    // )
   ],
 );
 
@@ -43,30 +52,35 @@ class RadishApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      theme: ThemeData(
-        fontFamily: 'Hanbit',
-        hintColor: Colors.grey[350],
-        primaryColor: Colors.pink[300],
-        textTheme: const TextTheme(
-          labelLarge: TextStyle(color: Colors.white),
-        ),
-        textButtonTheme: TextButtonThemeData(
-          style: TextButton.styleFrom(
-            backgroundColor: Colors.pink[300],
-            foregroundColor: Colors.white,
-            minimumSize: const Size(48, 48),
+    return ChangeNotifierProvider<UserProvider>(
+      create: (BuildContext context) {
+        return UserProvider();
+      },
+      child: MaterialApp.router(
+        theme: ThemeData(
+          fontFamily: 'Hanbit',
+          hintColor: Colors.grey[350],
+          primaryColor: Colors.pink[300],
+          textTheme: const TextTheme(
+            labelLarge: TextStyle(color: Colors.white),
+          ),
+          textButtonTheme: TextButtonThemeData(
+            style: TextButton.styleFrom(
+              backgroundColor: Colors.pink[300],
+              foregroundColor: Colors.white,
+              minimumSize: const Size(48, 48),
+            ),
+          ),
+          appBarTheme: const AppBarTheme(
+            backgroundColor: Colors.white,
+            titleTextStyle: TextStyle(color: Colors.black87),
+            elevation: 2,
           ),
         ),
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.white,
-          titleTextStyle: TextStyle(color: Colors.black87),
-          elevation: 2,
-        ),
+        debugShowCheckedModeBanner: false,
+        routeInformationParser: BeamerParser(),
+        routerDelegate: _routerDelegate,
       ),
-      debugShowCheckedModeBanner: false,
-      routeInformationParser: BeamerParser(),
-      routerDelegate: _routerDelegate,
     );
   }
 }
