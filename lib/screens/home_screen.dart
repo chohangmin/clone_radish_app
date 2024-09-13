@@ -1,4 +1,6 @@
+import 'package:clone_radish_app/states/user_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -10,7 +12,9 @@ class HomeScreen extends StatelessWidget {
         title: const Text('홈 스크린'),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              context.read<UserProvider>().setUserAuth(false);
+            },
             icon: const Icon(Icons.logout),
           )
         ],

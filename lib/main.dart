@@ -2,6 +2,7 @@ import 'package:beamer/beamer.dart';
 import 'package:clone_radish_app/router/locations.dart';
 import 'package:clone_radish_app/screens/splash_screen.dart';
 import 'package:clone_radish_app/states/user_provider.dart';
+import 'package:clone_radish_app/utils/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -13,17 +14,14 @@ final _routerDelegate = BeamerDelegate(
     BeamGuard(
       pathPatterns: ['/'],
       check: (context, location) {
+        logger.d('current location ${Beamer.of(context).currentBeamLocation}');
+
+        logger.d(
+            "BeamGuard is running ${context.watch<UserProvider>().userState}");
         return context.watch<UserProvider>().userState;
       },
       beamToNamed: (orign, target) => '/auth',
     ),
-    // BeamGuard(
-    //   pathPatterns: ['/auth'],
-    //   check: (context, location) {
-    //     return context.watch<UserProvider>().userState;
-    //   },
-    //   beamToNamed: (orign, target) => '/',
-    // )
   ],
 );
 

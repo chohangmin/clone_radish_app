@@ -168,7 +168,7 @@ class _AuthPageState extends State<AuthPage> {
       _verificationStatus = VerificationStatus.verificationDone;
     });
     context.read<UserProvider>().setUserAuth(true);
-    logger.d('current user state ${context.read<UserProvider>().userState}');
+  
   }
 }
 

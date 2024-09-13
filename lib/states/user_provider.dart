@@ -1,3 +1,4 @@
+import 'package:beamer/beamer.dart';
 import 'package:flutter/widgets.dart';
 
 class UserProvider extends ChangeNotifier {
@@ -5,6 +6,10 @@ class UserProvider extends ChangeNotifier {
 
   void setUserAuth(bool authState) {
     _userLoggedIn = authState;
+
+    // if (authState) {
+    //   Beamer.of(context).beamToNamed('/');
+    // } else {}
     notifyListeners();
   }
 

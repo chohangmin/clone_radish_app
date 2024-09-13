@@ -1,3 +1,4 @@
+import 'package:beamer/beamer.dart';
 import 'package:clone_radish_app/states/user_provider.dart';
 import 'package:clone_radish_app/utils/logger.dart';
 import 'package:extended_image/extended_image.dart';
@@ -11,7 +12,7 @@ class IntroPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    logger.d('current user state ${context.read<UserProvider>().userState}');
+    logger.d('current location ${Beamer.of(context).currentBeamLocation}');
     return LayoutBuilder(builder: (context, constraints) {
       Size size = MediaQuery.of(context).size;
 
