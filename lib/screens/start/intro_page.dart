@@ -12,7 +12,8 @@ class IntroPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    logger.d('current location ${Beamer.of(context).currentBeamLocation}');
+    logger.d(
+        'Intro page current location ${Beamer.of(context).currentBeamLocation}');
     return LayoutBuilder(builder: (context, constraints) {
       Size size = MediaQuery.of(context).size;
 

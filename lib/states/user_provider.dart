@@ -7,9 +7,6 @@ class UserProvider extends ChangeNotifier {
   void setUserAuth(bool authState) {
     _userLoggedIn = authState;
 
-    // if (authState) {
-    //   Beamer.of(context).beamToNamed('/');
-    // } else {}
     notifyListeners();
   }
 
