@@ -20,7 +20,7 @@ class StartScreen extends StatelessWidget {
             IntroPage(
               controller: _pageController,
             ),
-            const AddressPage(),
+             AddressPage(),
             AuthPage(),
           ]),
     );

@@ -1,7 +1,18 @@
+import 'package:clone_radish_app/data/address_model.dart';
+import 'package:clone_radish_app/screens/start/address_service.dart';
+import 'package:clone_radish_app/utils/logger.dart';
 import 'package:flutter/material.dart';
 
-class AddressPage extends StatelessWidget {
+class AddressPage extends StatefulWidget {
   const AddressPage({super.key});
+
+  @override
+  State<AddressPage> createState() => _AddressPageState();
+}
+
+class _AddressPageState extends State<AddressPage> {
+  final TextEditingController _addressController = TextEditingController();
+  AddressModel? _addressModel;
 
   @override
   Widget build(BuildContext context) {
@@ -13,6 +24,12 @@ class AddressPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           TextFormField(
+            controller: _addressController,
+            onFieldSubmitted: (text) async {
+              _addressModel = await AddressService().SearchAddressByStr(text);
+              logger.e('Searching success!');
+              setState(() {});
+            },
             decoration: InputDecoration(
               prefixIcon: const Icon(
                 Icons.search,
@@ -57,11 +74,13 @@ class AddressPage extends StatelessWidget {
           ),
           Expanded(
             child: ListView.builder(
-              itemCount: 30,
+              itemCount: _addressModel == null ? 0 : _addressModel!.list.length,
               itemBuilder: (context, index) {
+                if (_addressModel == null) return Container();
+
                 return ListTile(
-                  title: Text('address $index'),
-                  subtitle: Text('detail $index'),
+                  title: Text(_addressModel!.list[index].juso),
+                  subtitle: Text('우편번호 ${_addressModel!.list[index].zipCl}'),
                 );
               },
             ),
