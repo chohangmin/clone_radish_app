@@ -2,6 +2,7 @@ import 'package:clone_radish_app/data/address_model.dart';
 import 'package:clone_radish_app/screens/start/address_service.dart';
 import 'package:clone_radish_app/utils/logger.dart';
 import 'package:flutter/material.dart';
+import 'package:location/location.dart';
 
 class AddressPage extends StatefulWidget {
   const AddressPage({super.key});
@@ -60,7 +61,30 @@ class _AddressPageState extends State<AddressPage> {
             height: 8,
           ),
           TextButton.icon(
-            onPressed: () {},
+            onPressed: () async {
+              Location location = Location();
+              bool serviceEnabled;
+              PermissionStatus permissionGranted;
+              LocationData locationData;
+
+              serviceEnabled = await location.serviceEnabled();
+              if (!serviceEnabled) {
+                serviceEnabled = await location.requestService();
+                if (!serviceEnabled) {
+                  return;
+                }
+              }
+
+              permissionGranted = await location.hasPermission();
+              if (permissionGranted == PermissionStatus.denied) {
+                permissionGranted = await location.requestPermission();
+                if (permissionGranted != PermissionStatus.granted) {
+                  return;
+                }
+              }
+              locationData = await location.getLocation();
+              logger.d(locationData);
+            },
             icon: Icon(
               Icons.location_pin,
               color: buttonColor,
@@ -74,13 +98,15 @@ class _AddressPageState extends State<AddressPage> {
           ),
           Expanded(
             child: ListView.builder(
-              itemCount: _addressModel == null ? 0 : _addressModel!.list.length,
+              itemCount: _addressModel == null
+                  ? 0
+                  : _addressModel!.result.items.length,
               itemBuilder: (context, index) {
                 if (_addressModel == null) return Container();
 
                 return ListTile(
-                  title: Text(_addressModel!.list[index].juso),
-                  subtitle: Text('우편번호 ${_addressModel!.list[index].zipCl}'),
+                  title: Text(_addressModel!.result.items[index].district),
+                  subtitle: Text(_addressModel!.result.items[index].title),
                 );
               },
             ),

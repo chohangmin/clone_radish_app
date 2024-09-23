@@ -6,14 +6,16 @@ import 'package:dio/dio.dart';
 class AddressService {
   Future<AddressModel> SearchAddressByStr(String text) async {
     final formData = {
-      'apiKey': VWORLD_KEY,
-      'category': 'juso',
-      'q': text,
-      'pageUnit': '30',
+      'request': 'search',
+      'key': VWORLD_KEY,
+      'query': text,
+      'type': 'ADDRESS',
+      'category': 'ROAD',
+      'size': '30',
     };
 
     final response = await Dio()
-        .get('http://apis.vworld.kr/search.do', queryParameters: formData)
+        .get('https://api.vworld.kr/req/search', queryParameters: formData)
         .catchError((e) {
       logger.e(e.message);
     });

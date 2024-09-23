@@ -1,91 +1,95 @@
 class AddressModel {
-  String juso;
-  PaginationInfo paginationInfo;
-  String category;
-  List<ListElement> list;
+  Page page;
+  Result result;
 
   AddressModel({
-    required this.juso,
-    required this.paginationInfo,
-    required this.category,
-    required this.list,
+    required this.page,
+    required this.result,
   });
 
-  factory AddressModel.fromJson(Map<String, dynamic> json) => AddressModel(
-        juso: json['Juso'],
-        paginationInfo: PaginationInfo.fromJson(json['paginationInfo']),
-        category: json['category'],
-        list: List<ListElement>.from(
-            json['LIST'].map((x) => ListElement.fromJson(x))),
-      );
-
+  factory AddressModel.fromJson(Map<String, dynamic> json) {
+    final response = json["response"];
+    return AddressModel(
+      page: Page.fromJson(response["page"]),
+      result: Result.fromJson(response["result"]),
+    );
+  }
   Map<String, dynamic> toJson() => {
-    "Juso" : juso,
-    "paginationInfo" : paginationInfo.toJson(),
-    "category" : category,
-    "LIST" : List<dynamic>.from(list.map((x) => x.toJson())),
-  };
-}
-
-class PaginationInfo {
-  String lastPageNo;
-  String totalPageCount;
-  String firstPageNo;
-  String currentPageNo;
-  String totalRecordCount;
-
-  PaginationInfo({
-    required this.lastPageNo,
-    required this.totalPageCount,
-    required this.firstPageNo,
-    required this.currentPageNo,
-    required this.totalRecordCount,
-  });
-
-  factory PaginationInfo.fromJson(Map<String, dynamic> json) => PaginationInfo(
-        lastPageNo: json['lastPageNo'],
-        totalPageCount: json['totalPageCount'],
-        firstPageNo: json['firstPageNo'],
-        currentPageNo: json['currentPageNo'],
-        totalRecordCount: json['totalRecordCount'],
-      );
-  Map<String, dynamic> toJson() => {
-        "lastPageNo": lastPageNo,
-        "totalPageCount": totalPageCount,
-        "firstPageNo": firstPageNo,
-        "currentPageNo": currentPageNo,
-        "totalRecordCount": totalRecordCount,
+        "page": page.toJson(),
+        "result": result.toJson(),
       };
 }
 
-class ListElement {
-  String xpos;
-  String ypos;
-  String juso;
-  String zipCl;
-  String bldNm;
+class Page {
+  String total;
+  String current;
+  String size;
 
-  ListElement({
-    required this.xpos,
-    required this.ypos,
-    required this.juso,
-    required this.zipCl,
-    required this.bldNm,
+  Page({
+    required this.total,
+    required this.current,
+    required this.size,
   });
 
-  factory ListElement.fromJson(Map<String, dynamic> json) => ListElement(
-        xpos: json['xpos'],
-        ypos: json['ypos'],
-        juso: json['JUSO'],
-        zipCl: json['ZIP_CL'],
-        bldNm: json['BLD_NM'],
+  factory Page.fromJson(Map<String, dynamic> json) => Page(
+        total: json["total"],
+        current: json["current"],
+        size: json["size"],
+      );
+  Map<String, dynamic> toJson() => {
+        "total": total,
+        "current": current,
+        "size": size,
+      };
+}
+
+class Result {
+  String crs;
+  String type;
+  List<Item> items;
+
+  Result({
+    required this.crs,
+    required this.type,
+    required this.items,
+  });
+
+  factory Result.fromJson(Map<String, dynamic> json) => Result(
+        crs: json["crs"],
+        type: json["type"],
+        items: List<Item>.from(json["items"].map((x) => Item.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
-        "xpos": xpos,
-        "ypos": ypos,
-        "JUSO": juso,
-        "ZIP_CL": zipCl,
-        "BLD_NM": bldNm,
+        "crs": crs,
+        "type": type,
+        "items": List<dynamic>.from(items.map((x) => x.toJson())),
+      };
+}
+
+class Item {
+  String id;
+  String title;
+  String district;
+  String geometry;
+
+  Item({
+    required this.id,
+    required this.title,
+    required this.district,
+    required this.geometry,
+  });
+
+  factory Item.fromJson(Map<String, dynamic> json) => Item(
+        id: json["id"],
+        title: json["title"],
+        district: json["district"],
+        geometry: json["geometry"],
+      );
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "title": title,
+        "district": district,
+        "geometry": geometry,
       };
 }
