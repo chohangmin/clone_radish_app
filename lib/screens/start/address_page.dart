@@ -1,4 +1,5 @@
 import 'package:clone_radish_app/data/address_model.dart';
+import 'package:clone_radish_app/data/address_point_model.dart';
 import 'package:clone_radish_app/screens/start/address_service.dart';
 import 'package:clone_radish_app/utils/logger.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,9 @@ class AddressPage extends StatefulWidget {
 class _AddressPageState extends State<AddressPage> {
   final TextEditingController _addressController = TextEditingController();
   AddressModel? _addressModel;
+  final List<AddressPointModel> _addressPointModel = [];
+
+  bool _isGettingLocation = false;
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +31,7 @@ class _AddressPageState extends State<AddressPage> {
           TextFormField(
             controller: _addressController,
             onFieldSubmitted: (text) async {
+              _addressPointModel.clear();
               _addressModel = await AddressService().SearchAddressByStr(text);
               logger.d('Searching success!');
               setState(() {});
@@ -62,6 +67,11 @@ class _AddressPageState extends State<AddressPage> {
           ),
           TextButton.icon(
             onPressed: () async {
+              _addressModel = null;
+              _addressPointModel.clear;
+              setState(() {
+                _isGettingLocation = true;
+              });
               Location location = Location();
               bool serviceEnabled;
               PermissionStatus permissionGranted;
@@ -85,14 +95,27 @@ class _AddressPageState extends State<AddressPage> {
               locationData = await location.getLocation();
               logger.d(locationData);
 
-              AddressService().findAddressByCoordinate(
+              List<AddressPointModel> addresses =
+                  await AddressService().findAddressByCoordinate(
                 lon: locationData.longitude!,
                 lat: locationData.latitude!,
               );
+
+              _addressPointModel.addAll(addresses);
+
+              setState(() {
+                _isGettingLocation = false;
+              });
             },
-            icon: Icon(
-              Icons.location_pin,
-              color: buttonColor,
+            icon: SizedBox(
+              width: 24,
+              height: 24,
+              child: _isGettingLocation
+                  ? const CircularProgressIndicator()
+                  : Icon(
+                      Icons.location_pin,
+                      color: buttonColor,
+                    ),
             ),
             label: Text(
               '현재 위치로 찾기',
@@ -101,22 +124,41 @@ class _AddressPageState extends State<AddressPage> {
               ),
             ),
           ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: _addressModel == null
-                  ? 0
-                  : _addressModel!.result.items.length,
-              itemBuilder: (context, index) {
-                if (_addressModel == null) return Container();
+          if (_addressModel != null)
+            Expanded(
+              child: ListView.builder(
+                itemCount: _addressModel == null
+                    ? 0
+                    : _addressModel!.result.items.length,
+                itemBuilder: (context, index) {
+                  if (_addressModel == null) return Container();
 
-                return ListTile(
-                  title: Text(_addressModel!.result.items[index].address.road),
-                  subtitle:
-                      Text(_addressModel!.result.items[index].address.parcel),
-                );
-              },
+                  return ListTile(
+                    title:
+                        Text(_addressModel!.result.items[index].address.road),
+                    subtitle:
+                        Text(_addressModel!.result.items[index].address.parcel),
+                  );
+                },
+              ),
             ),
-          ),
+          if (_addressPointModel.isNotEmpty)
+            Expanded(
+              child: ListView.builder(
+                itemCount: _addressPointModel.length,
+                itemBuilder: (context, index) {
+                  if (_addressPointModel[index].result.isEmpty) {
+                    return Container();
+                  }
+
+                  return ListTile(
+                    title: Text(_addressPointModel[index].result[0].text ?? ""),
+                    subtitle:
+                        Text(_addressPointModel[index].result[0].zipcode ?? ""),
+                  );
+                },
+              ),
+            ),
         ],
       ),
     );
