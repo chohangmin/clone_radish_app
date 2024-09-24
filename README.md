@@ -1,28 +1,5 @@
 https://m.blog.naver.com/rock11201/222614441274
 
-https://www.vworld.kr/dev/v4dv_search_s001.do
-
-{
-  "Juso": "1",
-  "paginationInfo": {
-    "lastPageNo": "1",
-    "totalPageCount": "1",
-    "firstPageNo": "1",
-    "currentPageNo": "1",
-    "totalRecordCount": "1"
-  },
-  "category": "Juso",
-  "LIST": [
-    {
-      "ypos": "37.402352535",
-      "xpos": "127.101313354",
-      "JUSO": "경기도 성남시 분당구 판교로 242 (삼평동)",
-      "ZIP_CL": "13487",
-      "BLD_NM": ""
-    }
-  ]
-}
-
 https://www.vworld.kr/dev/v4dv_search2_s001.do
 
 {

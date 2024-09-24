@@ -84,6 +84,11 @@ class _AddressPageState extends State<AddressPage> {
               }
               locationData = await location.getLocation();
               logger.d(locationData);
+
+              AddressService().findAddressByCoordinate(
+                lon: locationData.longitude!,
+                lat: locationData.latitude!,
+              );
             },
             icon: Icon(
               Icons.location_pin,
