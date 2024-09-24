@@ -28,7 +28,7 @@ class _AddressPageState extends State<AddressPage> {
             controller: _addressController,
             onFieldSubmitted: (text) async {
               _addressModel = await AddressService().SearchAddressByStr(text);
-              logger.e('Searching success!');
+              logger.d('Searching success!');
               setState(() {});
             },
             decoration: InputDecoration(
@@ -105,8 +105,9 @@ class _AddressPageState extends State<AddressPage> {
                 if (_addressModel == null) return Container();
 
                 return ListTile(
-                  title: Text(_addressModel!.result.items[index].district),
-                  subtitle: Text(_addressModel!.result.items[index].title),
+                  title: Text(_addressModel!.result.items[index].address.road),
+                  subtitle:
+                      Text(_addressModel!.result.items[index].address.parcel),
                 );
               },
             ),

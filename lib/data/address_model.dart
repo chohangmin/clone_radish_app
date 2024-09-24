@@ -1,3 +1,5 @@
+import 'dart:math';
+
 class AddressModel {
   Page page;
   Result result;
@@ -69,27 +71,78 @@ class Result {
 
 class Item {
   String id;
-  String title;
-  String district;
-  String geometry;
+  Address address;
+  Point point;
 
   Item({
     required this.id,
-    required this.title,
-    required this.district,
-    required this.geometry,
+    required this.address,
+    required this.point,
   });
 
   factory Item.fromJson(Map<String, dynamic> json) => Item(
         id: json["id"],
-        title: json["title"],
-        district: json["district"],
-        geometry: json["geometry"],
+        address: Address.fromJson(json["address"]),
+        point: Point.fromJson(json["point"]),
       );
   Map<String, dynamic> toJson() => {
         "id": id,
-        "title": title,
-        "district": district,
-        "geometry": geometry,
+        "address": address.toJson(),
+        "point": point.toJson(),
+      };
+}
+
+class Address {
+  String zipcode;
+  String category;
+  String road;
+  String parcel;
+  String bldnm;
+  String bldnmdc;
+
+  Address({
+    required this.zipcode,
+    required this.category,
+    required this.road,
+    required this.parcel,
+    required this.bldnm,
+    required this.bldnmdc,
+  });
+
+  factory Address.fromJson(Map<String, dynamic> json) => Address(
+        zipcode: json["zipcode"],
+        category: json["category"],
+        road: json["road"],
+        parcel: json["parcel"],
+        bldnm: json["bldnm"],
+        bldnmdc: json["bldnmdc"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "zipcode": zipcode,
+        "category": category,
+        "road": road,
+        "parcel": parcel,
+        "bldnm": bldnm,
+        "bldnmdc": bldnmdc,
+      };
+}
+
+class Point {
+  String x;
+  String y;
+
+  Point({
+    required this.x,
+    required this.y,
+  });
+
+  factory Point.fromJson(Map<String, dynamic> json) => Point(
+        x: json["x"],
+        y: json["y"],
+      );
+  Map<String, dynamic> toJson() => {
+        "x": x,
+        "y": y,
       };
 }
