@@ -9,14 +9,29 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('홈 스크린'),
+        title: Text(
+          '홈스크린 (이태원 동)',
+          style: Theme.of(context).appBarTheme.titleTextStyle,
+        ),
         actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.search),
+          ),
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.list),
+          ),
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.notifications),
+          ),
           IconButton(
             onPressed: () {
               context.read<UserProvider>().setUserAuth(false);
             },
             icon: const Icon(Icons.logout),
-          )
+          ),
         ],
       ),
     );

@@ -12,30 +12,30 @@ final _routerDelegate = BeamerDelegate(
       BeamerLocationBuilder(beamLocations: [HomeLocation(), AuthLocation()])
           .call,
   guards: [
-    BeamGuard(
-      pathPatterns: ['/auth'],
-      check: (context, location) {
-        logger.d(
-            'Beam guard /auth current location ${Beamer.of(context).currentBeamLocation}');
+    // BeamGuard(
+    //   pathPatterns: ['/auth'],
+    //   check: (context, location) {
+    //     logger.d(
+    //         'Beam guard /auth current location ${Beamer.of(context).currentBeamLocation}');
 
-        logger.d(
-            "BeamGuard is running ${context.watch<UserProvider>().userState}");
-        return !context.watch<UserProvider>().userState;
-      },
-      beamToNamed: (orign, target) => '/',
-    ),
-    BeamGuard(
-      pathPatterns: ['/'],
-      check: (context, location) {
-        logger.d(
-            'Beam guard / current location ${Beamer.of(context).currentBeamLocation}');
+    //     logger.d(
+    //         "BeamGuard is running ${context.watch<UserProvider>().userState}");
+    //     return !context.watch<UserProvider>().userState;
+    //   },
+    //   beamToNamed: (orign, target) => '/',
+    // ),
+    // BeamGuard(
+    //   pathPatterns: ['/'],
+    //   check: (context, location) {
+    //     logger.d(
+    //         'Beam guard / current location ${Beamer.of(context).currentBeamLocation}');
 
-        logger.d(
-            "BeamGuard is running ${context.watch<UserProvider>().userState}");
-        return context.watch<UserProvider>().userState;
-      },
-      beamToNamed: (orign, target) => '/auth',
-    ),
+    //     logger.d(
+    //         "BeamGuard is running ${context.watch<UserProvider>().userState}");
+    //     return context.watch<UserProvider>().userState;
+    //   },
+    //   beamToNamed: (orign, target) => '/auth',
+    // ),
   ],
 );
 
@@ -86,7 +86,11 @@ class RadishApp extends StatelessWidget {
           ),
           appBarTheme: const AppBarTheme(
             backgroundColor: Colors.white,
-            titleTextStyle: TextStyle(color: Colors.black87),
+            titleTextStyle: TextStyle(
+              color: Colors.black87,
+              fontSize: 18,
+              fontWeight: FontWeight.w700,
+            ),
             elevation: 2,
           ),
         ),
