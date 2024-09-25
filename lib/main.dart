@@ -71,29 +71,33 @@ class RadishApp extends StatelessWidget {
       },
       child: MaterialApp.router(
         theme: ThemeData(
-          fontFamily: 'Hanbit',
-          hintColor: Colors.grey[350],
-          primaryColor: Colors.pink[300],
-          textTheme: const TextTheme(
-            labelLarge: TextStyle(color: Colors.white),
-          ),
-          textButtonTheme: TextButtonThemeData(
-            style: TextButton.styleFrom(
-              backgroundColor: Colors.pink[300],
-              foregroundColor: Colors.white,
-              minimumSize: const Size(48, 48),
+            fontFamily: 'Hanbit',
+            hintColor: Colors.grey[350],
+            primaryColor: Colors.pink[300],
+            textTheme: const TextTheme(
+              labelLarge: TextStyle(color: Colors.white),
             ),
-          ),
-          appBarTheme: const AppBarTheme(
-            backgroundColor: Colors.white,
-            titleTextStyle: TextStyle(
-              color: Colors.black87,
-              fontSize: 18,
-              fontWeight: FontWeight.w700,
+            textButtonTheme: TextButtonThemeData(
+              style: TextButton.styleFrom(
+                backgroundColor: Colors.pink[300],
+                foregroundColor: Colors.white,
+                minimumSize: const Size(48, 48),
+              ),
             ),
-            elevation: 2,
-          ),
-        ),
+            appBarTheme: const AppBarTheme(
+              backgroundColor: Colors.white,
+              titleTextStyle: TextStyle(
+                color: Colors.black87,
+                fontSize: 18,
+                fontWeight: FontWeight.w700,
+              ),
+              elevation: 2,
+            ),
+            bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+              type: BottomNavigationBarType.fixed,
+              selectedItemColor: Colors.black87,
+              unselectedItemColor: Colors.black38,
+            )),
         debugShowCheckedModeBanner: false,
         routeInformationParser: BeamerParser(),
         routerDelegate: _routerDelegate,
