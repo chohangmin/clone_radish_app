@@ -4,6 +4,7 @@ import 'package:clone_radish_app/screens/start/address_service.dart';
 import 'package:clone_radish_app/utils/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AddressPage extends StatefulWidget {
   const AddressPage({super.key});
@@ -134,6 +135,11 @@ class _AddressPageState extends State<AddressPage> {
                   if (_addressModel == null) return Container();
 
                   return ListTile(
+                    onTap: () {
+                      _setAddressOnSharedPreference(
+                          _addressModel!.result.items[index].address.road ??
+                              "");
+                    },
                     title:
                         Text(_addressModel!.result.items[index].address.road),
                     subtitle:
@@ -152,6 +158,10 @@ class _AddressPageState extends State<AddressPage> {
                   }
 
                   return ListTile(
+                    onTap: () {
+                      _setAddressOnSharedPreference(
+                          _addressPointModel[index].result[0].text ?? "");
+                    },
                     title: Text(_addressPointModel[index].result[0].text ?? ""),
                     subtitle:
                         Text(_addressPointModel[index].result[0].zipcode ?? ""),
@@ -162,5 +172,10 @@ class _AddressPageState extends State<AddressPage> {
         ],
       ),
     );
+  }
+
+  _setAddressOnSharedPreference(String address) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('address', address);
   }
 }

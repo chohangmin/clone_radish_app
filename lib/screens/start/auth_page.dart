@@ -5,6 +5,7 @@ import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthPage extends StatefulWidget {
   const AuthPage({super.key});
@@ -95,13 +96,14 @@ class _AuthPageState extends State<AuthPage> {
                       ),
                       TextButton(
                         onPressed: () {
-                          if (_formKey.currentState != null) {
-                            bool passed = _formKey.currentState!.validate();
-                            if (passed) {
-                              _verificationStatus = VerificationStatus.codeSent;
-                            }
-                          }
-                          FocusScope.of(context).unfocus();
+                          _getAddressOnSharedPreference();
+                          // if (_formKey.currentState != null) {
+                          //   bool passed = _formKey.currentState!.validate();
+                          //   if (passed) {
+                          //     _verificationStatus = VerificationStatus.codeSent;
+                          //   }
+                          // }
+                          // FocusScope.of(context).unfocus();
                         },
                         child: const Text('인증문자 발송'),
                       ),
@@ -168,7 +170,12 @@ class _AuthPageState extends State<AuthPage> {
       _verificationStatus = VerificationStatus.verificationDone;
     });
     context.read<UserProvider>().setUserAuth(true);
-  
+  }
+
+  _getAddressOnSharedPreference() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String address = prefs.getString('address') ?? "";
+    logger.d("Address from shared prefs - $address");
   }
 }
 
