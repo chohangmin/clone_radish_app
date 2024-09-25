@@ -12,11 +12,11 @@ final _routerDelegate = BeamerDelegate(
       BeamerLocationBuilder(beamLocations: [HomeLocation(), AuthLocation()])
           .call,
   guards: [
-    
     BeamGuard(
       pathPatterns: ['/auth'],
       check: (context, location) {
-        logger.d('Beam guard /auth current location ${Beamer.of(context).currentBeamLocation}');
+        logger.d(
+            'Beam guard /auth current location ${Beamer.of(context).currentBeamLocation}');
 
         logger.d(
             "BeamGuard is running ${context.watch<UserProvider>().userState}");
@@ -27,7 +27,8 @@ final _routerDelegate = BeamerDelegate(
     BeamGuard(
       pathPatterns: ['/'],
       check: (context, location) {
-        logger.d('Beam guard / current location ${Beamer.of(context).currentBeamLocation}');
+        logger.d(
+            'Beam guard / current location ${Beamer.of(context).currentBeamLocation}');
 
         logger.d(
             "BeamGuard is running ${context.watch<UserProvider>().userState}");
@@ -39,6 +40,7 @@ final _routerDelegate = BeamerDelegate(
 );
 
 void main() {
+  Provider.debugCheckInvalidValueType = null;
   runApp(const MyApp());
 }
 

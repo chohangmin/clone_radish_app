@@ -3,6 +3,7 @@ import 'package:clone_radish_app/screens/start/auth_page.dart';
 import 'package:clone_radish_app/screens/start/intro_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 
 class StartScreen extends StatelessWidget {
   StartScreen({super.key});
@@ -11,18 +12,19 @@ class StartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: PageView(
-          controller: _pageController,
-          // physics: const NeverScrollableScrollPhysics(),
-          children: [
-            IntroPage(
-              controller: _pageController,
-            ),
-             AddressPage(),
-            AuthPage(),
-          ]),
+    return Provider<PageController>.value(
+      value: _pageController,
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: PageView(
+            controller: _pageController,
+            physics: const NeverScrollableScrollPhysics(),
+            children: const [
+              IntroPage(),
+              AddressPage(),
+              AuthPage(),
+            ]),
+      ),
     );
   }
 }
