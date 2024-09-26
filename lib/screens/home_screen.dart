@@ -1,3 +1,4 @@
+import 'package:clone_radish_app/screens/home/items_page.dart';
 import 'package:clone_radish_app/states/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -77,9 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: IndexedStack(
         index: _bottomSelectedIndex,
         children: [
-          Container(
-            color: Colors.accents[0],
-          ),
+          const ItemsPage(),
           Container(
             color: Colors.accents[1],
           ),
