@@ -4,6 +4,7 @@ import 'package:clone_radish_app/screens/splash_screen.dart';
 import 'package:clone_radish_app/screens/start_screen.dart';
 import 'package:clone_radish_app/states/user_provider.dart';
 import 'package:clone_radish_app/utils/logger.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -39,22 +40,31 @@ final _routerDelegate = BeamerDelegate(
   ],
 );
 
-void main() {
+void main() async {
   Provider.debugCheckInvalidValueType = null;
-  runApp(const MyApp());
+  // FirebaseApp app = await Firebase.initializeApp(
+  //   options: DefaultFirebaseOptions.currentPlatform,
+  // );
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
+
+  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: Future.delayed(const Duration(seconds: 3), () => 100),
+        future: _initialization,
         builder: (context, snapshot) {
-          return AnimatedSwitcher(
-            duration: const Duration(milliseconds: 900),
-            child: _splashedLoadingWidget(snapshot),
+          return Directionality(
+            textDirection: TextDirection.ltr,
+            child: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 900),
+              child: _splashedLoadingWidget(snapshot),
+            ),
           );
         });
   }
@@ -112,7 +122,7 @@ StatelessWidget _splashedLoadingWidget(AsyncSnapshot snapshot) {
   if (snapshot.hasError) {
     print('에러가 발생하였습니다');
     return const Text('error');
-  } else if (snapshot.hasData) {
+  } else if (snapshot.connectionState == ConnectionState.done) {
     return const RadishApp();
   } else {
     return const SplashScreen();
