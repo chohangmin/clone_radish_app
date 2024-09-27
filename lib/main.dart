@@ -121,7 +121,7 @@ class RadishApp extends StatelessWidget {
 StatelessWidget _splashedLoadingWidget(AsyncSnapshot snapshot) {
   if (snapshot.hasError) {
     print('에러가 발생하였습니다');
-    return const Text('error');
+    return Text('error ${snapshot.error}');
   } else if (snapshot.connectionState == ConnectionState.done) {
     return const RadishApp();
   } else {
