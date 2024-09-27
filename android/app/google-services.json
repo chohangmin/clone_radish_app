@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "728874770075",
+    "project_id": "radishapp-bcfc3",
+    "storage_bucket": "radishapp-bcfc3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:728874770075:android:1146480b036610b3be703e",
+        "android_client_info": {
+          "package_name": "com.example.clone_radish_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLAW17mfApL6DZFyC0zNeQ7Urz3tgrhA4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
