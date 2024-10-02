@@ -7,6 +7,7 @@ import 'package:clone_radish_app/utils/logger.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'firebase_options.dart';
 
 final _routerDelegate = BeamerDelegate(
   locationBuilder:
@@ -20,29 +21,29 @@ final _routerDelegate = BeamerDelegate(
     //         'Beam guard /auth current location ${Beamer.of(context).currentBeamLocation}');
 
     //     logger.d(
-    //         "BeamGuard is running ${context.watch<UserProvider>().userState}");
-    //     return !context.watch<UserProvider>().userState;
+    //         "BeamGuard is running ${context.watch<UserProvider>().user != null}");
+    //     return context.watch<UserProvider>().user != null;
     //   },
     //   beamToNamed: (orign, target) => '/',
     // ),
-    // BeamGuard(
-    //   pathPatterns: ['/'],
-    //   check: (context, location) {
-    //     logger.d(
-    //         'Beam guard / current location ${Beamer.of(context).currentBeamLocation}');
+    BeamGuard(
+      pathPatterns: ['/'],
+      check: (context, location) {
+        logger.d(
+            'Beam guard / current location ${Beamer.of(context).currentBeamLocation}');
 
-    //     logger.d(
-    //         "BeamGuard is running ${context.watch<UserProvider>().userState}");
-    //     return context.watch<UserProvider>().userState;
-    //   },
-    //   beamToNamed: (orign, target) => '/auth',
-    // ),
+        logger.d(
+            "BeamGuard is running ${context.watch<UserProvider>().user != null}");
+        return context.watch<UserProvider>().user != null;
+      },
+      beamToNamed: (orign, target) => '/auth',
+    ),
   ],
 );
 
 void main() async {
   Provider.debugCheckInvalidValueType = null;
-  // FirebaseApp app = await Firebase.initializeApp(
+  // await Firebase.initializeApp(
   //   options: DefaultFirebaseOptions.currentPlatform,
   // );
   WidgetsFlutterBinding.ensureInitialized();
@@ -52,7 +53,9 @@ void main() async {
 class MyApp extends StatelessWidget {
   MyApp({super.key});
 
-  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+  final Future<FirebaseApp> _initialization = Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   @override
   Widget build(BuildContext context) {
