@@ -139,6 +139,10 @@ class _AuthPageState extends State<AuthPage> {
                                   verificationFailed:
                                       (FirebaseAuthException error) {
                                     logger.e(error.message);
+                                    setState(() {
+                                      _verificationStatus =
+                                          VerificationStatus.none;
+                                    });
                                   },
                                   codeSent: (String verificationId,
                                       int? forceResendingToken) async {
@@ -146,12 +150,9 @@ class _AuthPageState extends State<AuthPage> {
                                       _verificationId = verificationId;
                                       _forceResendingToken =
                                           forceResendingToken;
+                                      _verificationStatus =
+                                          VerificationStatus.codeSent;
                                     });
-
-                                    // setState(() {
-                                    //   _verificationStatus =
-                                    //       VerificationStatus.codeSent;
-                                    // });
                                   },
                                   codeAutoRetrievalTimeout:
                                       (String verificationId) {},
@@ -208,7 +209,12 @@ class _AuthPageState extends State<AuthPage> {
                             },
                             child: (_verificationStatus ==
                                     VerificationStatus.verifying)
-                                ? const CircularProgressIndicator()
+                                ? const SizedBox(
+                                    width: 26,
+                                    height: 26,
+                                    child: CircularProgressIndicator(
+                                      color: Colors.white,
+                                    ))
                                 : const Text('인증하기'),
                           ),
                         ),
@@ -235,6 +241,7 @@ class _AuthPageState extends State<AuthPage> {
           verificationId: _verificationId!, smsCode: _codeController.text);
 
       await FirebaseAuth.instance.signInWithCredential(credential);
+      logger.d("성공된 인증!");
     } catch (e) {
       logger.e(e);
       SnackBar snackBar = const SnackBar(
