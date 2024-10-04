@@ -14,6 +14,7 @@ final _routerDelegate = BeamerDelegate(
       BeamerLocationBuilder(beamLocations: [HomeLocation(), AuthLocation()])
           .call,
   guards: [
+    // 삭제해도 되는 부분임 
     // BeamGuard(
     //   pathPatterns: ['/auth'],
     //   check: (context, location) {
@@ -26,18 +27,20 @@ final _routerDelegate = BeamerDelegate(
     //   },
     //   beamToNamed: (orign, target) => '/',
     // ),
-    BeamGuard(
-      pathPatterns: ['/'],
-      check: (context, location) {
-        logger.d(
-            'Beam guard / current location ${Beamer.of(context).currentBeamLocation}');
 
-        logger.d(
-            "BeamGuard is running ${context.watch<UserProvider>().user != null}");
-        return context.watch<UserProvider>().user != null;
-      },
-      beamToNamed: (orign, target) => '/auth',
-    ),
+    // 실질적인 작동 위치 임
+    // BeamGuard(
+    //   pathPatterns: ['/'],
+    //   check: (context, location) {
+    //     logger.d(
+    //         'Beam guard / current location ${Beamer.of(context).currentBeamLocation}');
+
+    //     logger.d(
+    //         "BeamGuard is running ${context.watch<UserProvider>().user != null}");
+    //     return context.watch<UserProvider>().user != null;
+    //   },
+    //   beamToNamed: (orign, target) => '/auth',
+    // ),
   ],
 );
 
