@@ -1,4 +1,5 @@
 import 'package:clone_radish_app/constants/common_size.dart';
+import 'package:clone_radish_app/constants/shared_pref_keys.dart';
 import 'package:clone_radish_app/states/user_provider.dart';
 import 'package:clone_radish_app/utils/logger.dart';
 import 'package:extended_image/extended_image.dart';
@@ -257,7 +258,9 @@ class _AuthPageState extends State<AuthPage> {
 
   _getAddressOnSharedPreference() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String address = prefs.getString('address') ?? "";
+    String address = prefs.getString(SHARED_ADDRESS) ?? "";
+    double lat = prefs.getDouble(SHARED_LAT) ?? 0;
+    double lon = prefs.getDouble(SHARED_LON) ?? 0;
     logger.d("Address from shared prefs - $address");
   }
 }

@@ -1,3 +1,4 @@
+import 'package:clone_radish_app/constants/shared_pref_keys.dart';
 import 'package:clone_radish_app/data/address_model.dart';
 import 'package:clone_radish_app/data/address_point_model.dart';
 import 'package:clone_radish_app/screens/start/address_service.dart';
@@ -148,8 +149,14 @@ class _AddressPageState extends State<AddressPage> {
                     return ListTile(
                       onTap: () {
                         _setAddressOnSharedPreference(
-                            _addressModel!.result.items[index].address.road ??
-                                "");
+                          _addressModel!.result.items[index].address.road ?? "",
+                          num.parse(
+                              _addressModel!.result.items[index].point.x ??
+                                  "0"),
+                          num.parse(
+                              _addressModel!.result.items[index].point.y ??
+                                  "0"),
+                        );
                         _goToNextPage();
                       },
                       title:
@@ -172,7 +179,14 @@ class _AddressPageState extends State<AddressPage> {
                     return ListTile(
                       onTap: () {
                         _setAddressOnSharedPreference(
-                            _addressPointModel[index].result[0].text ?? "");
+                          _addressPointModel[index].result[0].text ?? "",
+                          num.parse(
+                              _addressModel!.result.items[index].point.x ??
+                                  "0"),
+                          num.parse(
+                              _addressModel!.result.items[index].point.y ??
+                                  "0"),
+                        );
                         _goToNextPage();
                       },
                       title:
@@ -189,9 +203,11 @@ class _AddressPageState extends State<AddressPage> {
     );
   }
 
-  _setAddressOnSharedPreference(String address) async {
+  _setAddressOnSharedPreference(String address, num lat, num lon) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('address', address);
+    await prefs.setString(SHARED_ADDRESS, address);
+    await prefs.setDouble(SHARED_LAT, lat.toDouble());
+    await prefs.setDouble(SHARED_LON, lon.toDouble());
   }
 
   _goToNextPage() {
