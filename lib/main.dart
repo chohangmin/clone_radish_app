@@ -20,6 +20,7 @@ final _routerDelegate = BeamerDelegate(
         return context.watch<UserProvider>().user != null;
       },
       beamToNamed: (orign, target) => '/auth',
+    
     )
 
     // 삭제해도 되는 부분임
