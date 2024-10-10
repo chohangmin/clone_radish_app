@@ -254,6 +254,7 @@ class _AuthPageState extends State<AuthPage> {
     setState(() {
       _verificationStatus = VerificationStatus.verificationDone;
     });
+    UserProvider();
   }
 
   _getAddressOnSharedPreference() async {

@@ -36,7 +36,7 @@ class ItemsPage extends StatelessWidget {
       itemBuilder: (context, index) {
         return InkWell(
           onTap: () {
-            UserService().fireStoreReadTest();
+            // UserService().fireStoreReadTest();
           },
           child: Row(
             children: [

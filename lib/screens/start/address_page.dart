@@ -181,10 +181,10 @@ class _AddressPageState extends State<AddressPage> {
                         _setAddressOnSharedPreference(
                           _addressPointModel[index].result[0].text ?? "",
                           num.parse(
-                              _addressModel!.result.items[index].point.x ??
+                              _addressPointModel[index].input.point.x ??
                                   "0"),
                           num.parse(
-                              _addressModel!.result.items[index].point.y ??
+                              _addressPointModel[index].input.point.y ??
                                   "0"),
                         );
                         _goToNextPage();
@@ -203,7 +203,7 @@ class _AddressPageState extends State<AddressPage> {
     );
   }
 
-  _setAddressOnSharedPreference(String address, num lat, num lon) async {
+  _setAddressOnSharedPreference(String address, num lon, num lat) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString(SHARED_ADDRESS, address);
     await prefs.setDouble(SHARED_LAT, lat.toDouble());

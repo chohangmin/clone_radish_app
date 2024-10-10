@@ -14,7 +14,15 @@ final _routerDelegate = BeamerDelegate(
       BeamerLocationBuilder(beamLocations: [HomeLocation(), AuthLocation()])
           .call,
   guards: [
-    // 삭제해도 되는 부분임 
+    BeamGuard(
+      pathPatterns: ['/'],
+      check: (context, location) {
+        return context.watch<UserProvider>().user != null;
+      },
+      beamToNamed: (orign, target) => '/auth',
+    )
+
+    // 삭제해도 되는 부분임
     // BeamGuard(
     //   pathPatterns: ['/auth'],
     //   check: (context, location) {

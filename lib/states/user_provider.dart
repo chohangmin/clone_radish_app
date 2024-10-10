@@ -1,8 +1,12 @@
 import 'package:beamer/beamer.dart';
 import 'package:clone_radish_app/constants/shared_pref_keys.dart';
+import 'package:clone_radish_app/data/user_model.dart';
+import 'package:clone_radish_app/repo/user_service.dart';
 import 'package:clone_radish_app/utils/logger.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
+import 'package:geoflutterfire_plus/geoflutterfire_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserProvider extends ChangeNotifier {
@@ -24,7 +28,7 @@ class UserProvider extends ChangeNotifier {
 
   void initUser() {
     FirebaseAuth.instance.authStateChanges().listen((user) {
-      _user = user;
+      _setNewUser(user);
       logger.d('현재 유저 상태 $_user');
       notifyListeners();
     });
@@ -39,6 +43,20 @@ class UserProvider extends ChangeNotifier {
       double lon = prefs.getDouble(SHARED_LON) ?? 0;
       String phoneNumber = user.phoneNumber!;
       String userKey = user.uid;
+
+      
+
+      UserModel userModel = UserModel(
+        userKey: "",
+        phoneNumber: phoneNumber,
+        address: address,
+        lat: lat,
+        lon: lon,
+        geoFirePoint: GeoFirePoint(GeoPoint(lat, lon)),
+        createdDate: DateTime.now().toUtc(),
+      );
+
+      await UserService().createNewUser(userModel.toJson(), userKey);
     }
   }
 
